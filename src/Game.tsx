@@ -5,6 +5,8 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import { nightOwl } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import useQuestionsStore from './store/questions';
 import { type Question as QuestionType } from "./types";
+import Footer from "./Footer";
+
 
 const getbackgroundColor = (info: QuestionType, index: number) => {
     const { userSelectedAnswer, correctAnswer } = info
@@ -67,6 +69,7 @@ const Game = () => {
                 </IconButton>
             </Stack>
             <Question info={questionInfo}/>
+            <Footer />
         </>
     );
 }
