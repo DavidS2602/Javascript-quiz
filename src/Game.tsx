@@ -1,4 +1,6 @@
-import { Card, List, ListItem, ListItemButton, ListItemText, Typography } from "@mui/material";
+import { Card, IconButton, List, ListItem, ListItemButton, ListItemText, Stack, Typography } from "@mui/material";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { nightOwl } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import useQuestionsStore from './store/questions';
@@ -48,10 +50,24 @@ const Question = ({ info } : { info: QuestionType }) => {
 const Game = () => {
     const questions = useQuestionsStore(state => state.questions)
     const currentQuestion = useQuestionsStore(state => state.currentQuestion)
+    const goNextQuestion = useQuestionsStore(state => state.goNextQuestion)
+    const goPrevQuestion = useQuestionsStore(state => state.goPrevQuestion)
+
     const questionInfo = questions[currentQuestion]
 
     return (
-        <Question info={questionInfo}/>
+        <>
+            <Stack direction='row' alignItems='center' justifyContent='center'>
+                <IconButton onClick={goPrevQuestion} disabled={currentQuestion === 0} sx={{ color: 'white' }}>
+                    <ArrowBackIosIcon />
+                </IconButton>
+                {currentQuestion + 1} / {questions.length}
+                <IconButton onClick={goNextQuestion} disabled={currentQuestion >=  questions.length - 1}>
+                    <ArrowForwardIosIcon />
+                </IconButton>
+            </Stack>
+            <Question info={questionInfo}/>
+        </>
     );
 }
 
